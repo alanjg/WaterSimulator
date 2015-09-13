@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="2D">
+      <UniqueIdentifier>{7ac7dfd2-aa8c-4548-8cc8-5d82b2cb0148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D">
+      <UniqueIdentifier>{fbe8de30-0133-4942-b508-5f7b4caa3ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{fe121f75-14b5-4207-86a2-de312115a581}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SparseVector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingCubes.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="SparseMatrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSet3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSetGrid3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSetFMGrid3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSet3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="StableFluid3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterSimulator3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="PerspectiveCamera.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSet2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSetFMGrid2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSetGrid2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingSquares.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSet2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="StableFluid2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterSimulator2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterSimulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vec.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="SparseVector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchingCubes.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="SparseMatrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSet3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSetGrid3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSetFMGrid3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSet3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="StableFluid3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterSimulator3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="PerspectiveCamera.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSet2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSetFMGrid2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSetGrid2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchingSquares.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSet2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="StableFluid2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterSimulator2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
