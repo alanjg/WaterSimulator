@@ -186,7 +186,7 @@ void LevelSet3D::UpdateThreaded(const StableFluid3D& f0, const StableFluid3D& f1
 	int extra = size[0] % total;
 
 	std::vector<std::thread> threads;
-	int at = 0;
+	int at = 0, left = extra;
 	//TVD RK THREE - see page 38 of osher & fedkiw
 	for (int i = 0; i < total; i++)
 	{
@@ -194,9 +194,9 @@ void LevelSet3D::UpdateThreaded(const StableFluid3D& f0, const StableFluid3D& f1
 		d.field = &f0;
 		d.iBegin = at;
 		at += each;
-		if (extra > 0)
+		if (left > 0)
 		{
-			extra--;
+			left--;
 			at++;
 		}
 		d.iEnd = at;
@@ -213,13 +213,20 @@ void LevelSet3D::UpdateThreaded(const StableFluid3D& f0, const StableFluid3D& f1
 	grid2->UpdateBorders();
 	std::swap(grid1, grid3); //grid3 holds phi(n)
 	std::swap(grid1, grid2); //gird1 holds phi(n+1)
-
+	at = 0;
+	left = extra;
 	for (int i = 0; i < total; i++)
 	{
 		WorkerData d;
 		d.field = &f2;
-		d.iBegin = i * each;
-		d.iEnd = i == total - 1 ? size[0] : (i + 1)*each;
+		d.iBegin = at;
+		at += each;
+		if (left > 0)
+		{
+			left--;
+			at++;
+		}
+		d.iEnd = at;
 		d.timestep = timestep;
 		threads.push_back(std::thread(&LevelSet3D::UpdateWorker, this, d));
 	}
@@ -247,13 +254,21 @@ void LevelSet3D::UpdateThreaded(const StableFluid3D& f0, const StableFluid3D& f1
 
 	grid1->UpdateBorders();
 
+	at = 0;
+	left = extra;
 	//Find phi(n+3/2)
 	for (int i = 0; i < total; i++)
 	{
 		WorkerData d;
 		d.field = &f1;
-		d.iBegin = i * each;
-		d.iEnd = i == total - 1 ? size[0] : (i + 1)*each;
+		d.iBegin = at;
+		at += each;
+		if (left > 0)
+		{
+			left--;
+			at++;
+		}
+		d.iEnd = at;
 		d.timestep = timestep;
 		threads.push_back(std::thread(&LevelSet3D::UpdateWorker, this, d));
 	}
@@ -476,12 +491,12 @@ double LevelSet3D::D2x(int x, int y, int z)
 
 double LevelSet3D::D2y(int x, int y, int z)
 {
-	return (D1x(x, y, z) - D1x(x, y - 1, z)) / (2 * GRID_SIZE);
+	return (D1y(x, y, z) - D1y(x, y - 1, z)) / (2 * GRID_SIZE);
 }
 
 double LevelSet3D::D2z(int x, int y, int z)
 {
-	return (D1x(x, y, z) - D1x(x, y, z - 1)) / (2 * GRID_SIZE);
+	return (D1z(x, y, z) - D1z(x, y, z - 1)) / (2 * GRID_SIZE);
 }
 
 double LevelSet3D::D2(int x, int y, int z, int dim)
@@ -499,12 +514,12 @@ double LevelSet3D::D3x(int x, int y, int z)
 
 double LevelSet3D::D3y(int x, int y, int z)
 {
-	return (D2x(x, y + 1, z) - D2x(x, y, z)) / (3 * GRID_SIZE);
+	return (D2y(x, y + 1, z) - D2y(x, y, z)) / (3 * GRID_SIZE);
 }
 
 double LevelSet3D::D3z(int x, int y, int z)
 {
-	return (D2x(x, y, z + 1) - D2x(x, y, z)) / (3 * GRID_SIZE);
+	return (D2z(x, y, z + 1) - D2z(x, y, z)) / (3 * GRID_SIZE);
 }
 
 double LevelSet3D::D3(int x, int y, int z, int dim)

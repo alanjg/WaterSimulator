@@ -32,17 +32,6 @@ LevelSet2D::~LevelSet2D()
 	delete gridFM;
 }
 
-/*
-double LevelSet2D::eval(const Point3d& location)
-{
-double x = (location[0] + 1) * (size[0] - 1) / 2.0;
-double y = (location[1] + 1) * (size[1] - 1) / 2.0;
-double z = (location[2] + 1) * (size[2] - 1) / 2.0;
-double d = LinearSample(x, y, z);
-
-return d;
-}
-*/
 void LevelSet2D::Write(std::ostream& out)
 {
 	grid1->Write(out);
@@ -54,7 +43,6 @@ void LevelSet2D::CheckGrid()
 	{
 		for (int j = 0; j <= size[1]; j++)
 		{
-			
 			double me = grid1->get(i, j);
 			if (i > 0)
 			{
@@ -145,6 +133,7 @@ void LevelSet2D::MakeCircle(double x, double y, double radius)
 		}
 	}
 	grid1->UpdateBorders();
+	//CheckGrid();
 }
 
 void LevelSet2D::UpdateWorker(WorkerData data)
@@ -168,7 +157,7 @@ void LevelSet2D::UpdateThreaded(const StableFluid2D& f0, const StableFluid2D& f1
 	int extra = size[0] % total;
 
 	std::vector<std::thread> threads;
-	int at = 0;
+	int at = 0, left = extra;
 	//TVD RK THREE - see page 38 of osher & fedkiw
 	for (int i = 0; i < total; i++)
 	{
@@ -176,9 +165,9 @@ void LevelSet2D::UpdateThreaded(const StableFluid2D& f0, const StableFluid2D& f1
 		d.field = &f0;
 		d.iBegin = at;
 		at += each;
-		if (extra > 0)
+		if (left > 0)
 		{
-			extra--;
+			left--;
 			at++;
 		}
 		d.iEnd = at;
@@ -195,13 +184,20 @@ void LevelSet2D::UpdateThreaded(const StableFluid2D& f0, const StableFluid2D& f1
 	grid2->UpdateBorders();
 	std::swap(grid1, grid3); //grid3 holds phi(n)
 	std::swap(grid1, grid2); //gird1 holds phi(n+1)
-
+	at = 0;
+	left = extra;
 	for (int i = 0; i < total; i++)
 	{
 		WorkerData d;
 		d.field = &f2;
-		d.iBegin = i * each;
-		d.iEnd = i == total - 1 ? size[0] : (i + 1)*each;
+		d.iBegin = at;
+		at += each;
+		if (left > 0)
+		{
+			left--;
+			at++;
+		}
+		d.iEnd = at;
 		d.timestep = timestep;
 		threads.push_back(std::thread(&LevelSet2D::UpdateWorker, this, d));
 	}
@@ -226,13 +222,22 @@ void LevelSet2D::UpdateThreaded(const StableFluid2D& f0, const StableFluid2D& f1
 
 	grid1->UpdateBorders();
 
+	at = 0;
+	left = extra;
+
 	//Find phi(n+3/2)
 	for (int i = 0; i < total; i++)
 	{
 		WorkerData d;
 		d.field = &f1;
-		d.iBegin = i * each;
-		d.iEnd = i == total - 1 ? size[0] : (i + 1)*each;
+		d.iBegin = at;
+		at += each;
+		if (left > 0)
+		{
+			left--;
+			at++;
+		}
+		d.iEnd = at;
 		d.timestep = timestep;
 		threads.push_back(std::thread(&LevelSet2D::UpdateWorker, this, d));
 	}
@@ -360,7 +365,6 @@ void LevelSet2D::Reinitialize()
 	{
 		for (int j = 0; j < size[1]; j++)
 		{
-
 			gridFM->Set(i, j, grid1->get(i, j)*(-1));
 			//if(grid1->get(i,j)*(-1) > 0)
 			//	cout << i << "   " << j << "   " <<
@@ -381,6 +385,8 @@ void LevelSet2D::Reinitialize()
 		}
 	}
 	grid1->UpdateBorders();
+
+	//CheckGrid();
 }
 
 void LevelSet2D::EulerStep(int x, int y, const StableFluid2D& grid, double timestep)
@@ -425,7 +431,7 @@ double LevelSet2D::D2x(int x, int y)
 
 double LevelSet2D::D2y(int x, int y)
 {
-	return (D1x(x, y) - D1x(x, y - 1)) / (2 * GRID_SIZE);
+	return (D1y(x, y) - D1y(x, y - 1)) / (2 * GRID_SIZE);
 }
 
 double LevelSet2D::D2(int x, int y, int dim)
@@ -442,7 +448,7 @@ double LevelSet2D::D3x(int x, int y)
 
 double LevelSet2D::D3y(int x, int y)
 {
-	return (D2x(x, y + 1) - D2x(x, y)) / (3 * GRID_SIZE);
+	return (D2y(x, y + 1) - D2y(x, y)) / (3 * GRID_SIZE);
 }
 
 double LevelSet2D::D3(int x, int y, int dim)

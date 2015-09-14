@@ -20,6 +20,7 @@ double& LevelSetGrid2D::get(int x, int y)
 {
 	x += bufferSize;
 	y += bufferSize;
+	if (x < 0 || x >= size[0] || y < 0 || y >= size[1]) throw std::exception();
 	return grid[getindex(x, y)];
 }
 
@@ -29,8 +30,8 @@ void LevelSetGrid2D::UpdateBorders()
 	{
 		for (int j = 0; j < size[1]; j++)
 		{
-			int index[2] = { i,j };
-			double dist[2] = { 0,0 };
+			int index[2] = { i, j };
+			double dist[2] = { 0, 0 };
 			for (int m = 0; m < 2; m++)
 			{
 				if (index[m] < bufferSize)

@@ -91,15 +91,15 @@ void WaterSimulator2D::DisplayFunc()
 	if (!pause || step)
 	{
 
-		//lset.Update(grid0, grid1, grid2, TIMESTEP);
-		lset.UpdateThreaded(grid0, grid1, grid2, TIMESTEP);
+		lset.Update(grid0, grid1, grid2, TIMESTEP);
+		//lset.UpdateThreaded(grid0, grid1, grid2, TIMESTEP);
 		//pset.Update(grid0, grid1, grid2, TIMESTEP);
 		pset.UpdateThreaded(grid0, grid1, grid2, TIMESTEP);
 
 		//		lset.Fix(pset);
 		lset.Reinitialize();
 		//	lset.Reinitialize();
-		//		lset.CheckGrid();
+		//lset.CheckGrid();
 
 		static int count = 0;
 		count++;
@@ -386,7 +386,7 @@ void WaterSimulator2D::RunSimulation()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	lset.MakeCircle(.5*gridSizeX, .5*gridSizeY, .3*gridSizeX);
+	lset.MakeCircle(.3*gridSizeX, .5*gridSizeY, .15*gridSizeX);
 	lset.Reinitialize();
 
 //	grid1.step(TIMESTEP * 0.5);
