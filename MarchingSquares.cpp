@@ -17,6 +17,7 @@ MarchingSquaresPatternEntry::MarchingSquaresPatternEntry(int s1, int s2, int e1,
 }
 
 MarchingSquares::MarchingSquares()
+	:iFunc(nullptr)
 {
 }
 

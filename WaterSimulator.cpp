@@ -7,9 +7,6 @@
 #include "Tests.h"
 #include <gl/glut.h>
 #include <gl/GL.h>
-#pragma comment(lib,"opengl32.lib")
-#pragma comment(lib,"glu32.lib")
-#pragma comment(lib,"glut32.lib")
 
 int main(int argc, char** argv)
 {
